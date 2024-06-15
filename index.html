@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,13 +25,12 @@
         display: flex;
         border: 3px solid black;
         text-align: center;
-        font-size: 50px;
 
     }
     section>main{
         display: flex;
         height: 100px;
-        width: 1200px;
+        width: 1000px;
         position: absolute;
         left: 0;
         right: 0;
@@ -59,12 +60,12 @@
         box-shadow: 1px 1px 40px 4px red
     }
     .lightOnLow{
-        background-color: #ec5472;
-        box-shadow: 1px 1px 40px 4px #e57f7f
+        background-color: #dc4743;
+        box-shadow: 1px 1px 40px 4px #dc4743
     }
     .lightOnLow2{
-        background-color: #f89bad;
-        box-shadow: 1px 1px 40px 4px #f89bad
+        background-color: #f6706c;
+        box-shadow: 1px 1px 40px 4px #f6706c
     }
 
 </style>
@@ -78,12 +79,10 @@
         <div></div>
         <div></div>
     </main>
-
-    <audio src="assets/audio/audio.mp3" id="audio" ></audio>
-
     <button id="btnStart">Start</button>
     <button id="btnStop">Stop</button>
 </section>
+<audio src="assets/audio/audio.mp3" id="audio"></audio>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
     var currentIndex = 0;
@@ -91,29 +90,35 @@
     var maxIndex = 5;
     var move = "right"
     function changeBg() {
-
         $("div").removeClass("lightOn");
         $("div").removeClass("lightOnLow");
         $("div").removeClass("lightOnLow2");
+
         $("div").eq(currentIndex).addClass("lightOn");
-        if (move==="right"){
-            if (currentIndex !==0)$("div").eq(currentIndex-1).addClass("lightOnLow")
 
-            ++currentIndex;
-            if (currentIndex>=maxIndex){
-                move="left"
+        if (move === "right") {
+            if (currentIndex !== 0) {
+                $("div").eq(currentIndex - 1).addClass("lightOnLow");
+                if (currentIndex !== 1) {
+                    $("div").eq(currentIndex - 2).addClass("lightOnLow2");
+                }
             }
-        }else {
-            $("div").eq(currentIndex+1).addClass("lightOnLow");
-
+            ++currentIndex;
+            if (currentIndex >= maxIndex) {
+                move = "left";
+            }
+        } else {
+            $("div").eq(currentIndex + 1).addClass("lightOnLow");
+            if (currentIndex !== maxIndex - 1) {
+                $("div").eq(currentIndex + 2).addClass("lightOnLow2");
+            }
             --currentIndex;
-            if (currentIndex===0){
-                move="right"
+            if (currentIndex === 0) {
+                move = "right";
             }
         }
-
     }
-    //setInterval(changeBg,100)
+
 
     $('#btnStart').on('click',() =>{
         MyInterval = setInterval(changeBg,100);
